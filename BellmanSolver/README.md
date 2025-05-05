@@ -141,24 +141,7 @@ print(f"MBdot操作次数: {stats['mbdot_operations']}")
 print(f"求解时间: {stats['solution_time']:.4f}秒")
 ```
 
-#### 启用近似解（噪声加速）
 
-```python
-# 创建求解器（近似解模式）
-solver = MBSolver(
-    state_size=100,
-    gamma=0.9,
-    epsilon=0.1,
-    tau=0.1,
-    use_hardware=False,
-    enable_noise=True,       # 启用噪声（近似解）
-    noise_level=0.01         # 噪声级别（φ值）
-)
-
-# 预处理与求解
-solver.preprocess(reward_vector, transition_matrix)
-V, W, stats = solver.solve(max_iterations=100)
-```
 
 #### 使用硬件加速
 
