@@ -122,10 +122,10 @@ from BellmanSolver.mbs_core.bellman_solver import MBSolver
 
 # 创建求解器（精确解模式）
 solver = MBSolver(
-    state_size=100,         # 状态空间大小
-    gamma=0.9,              # 折扣因子（论文中的γ）
-    epsilon=0.1,            # MBr收敛阈值（论文中的ε）
-    tau=0.1,                # 权重矩阵收敛阈值（论文中的τ）
+    state_size,         # 状态空间大小
+    gamma,              # 折扣因子（论文中的γ）
+    epsilon,            # MBr收敛阈值（论文中的ε）
+    tau,                # 权重矩阵收敛阈值（论文中的τ）
     use_hardware=False,     # 不使用硬件加速
     enable_noise=False      # 不启用噪声（精确解）
 )
