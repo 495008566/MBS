@@ -64,17 +64,17 @@ class MBSolver:
     """
     def __init__(self, 
                  state_size: int, 
-                 gamma: float = 0.9,      # 折扣因子（论文中的γ）- 控制未来奖励的权重
-                 epsilon: float = 0.1,     # MBr收敛阈值（论文中的ε）- 控制值函数迭代的收敛条件
-                 tau: float = 0.1,         # 权重矩阵收敛阈值（论文中的τ）- 控制策略迭代的收敛条件
-                 initial_exploration: float = 0.1,  # 初始探索率 - ε-贪婪策略的初始探索概率
-                 decay: float = 0.95,      # 探索率衰减因子 - 控制探索率随时间衰减的速度
-                 min_exploration: float = 0.01,    # 最小探索率 - 探索率的下限，确保始终保持一定的探索
-                 use_hardware: bool = False,       # 是否使用硬件加速
-                 noise_level: float = 0.01,        # 噪声级别（论文中的φ）- 控制阻变存储器读取噪声的标准差
+                 gamma: float,      # 折扣因子（论文中的γ）- 控制未来奖励的权重
+                 epsilon: float,     # MBr收敛阈值（论文中的ε）- 控制值函数迭代的收敛条件
+                 tau: float ,         # 权重矩阵收敛阈值（论文中的τ）- 控制策略迭代的收敛条件
+                 initial_exploration: float ,  # 初始探索率 - ε-贪婪策略的初始探索概率
+                 decay: float ,      # 探索率衰减因子 - 控制探索率随时间衰减的速度
+                 min_exploration: float ,    # 最小探索率 - 探索率的下限，确保始终保持一定的探索
+                 use_hardware: bool ,       # 是否使用硬件加速
+                 noise_level: float ,        # 噪声级别（论文中的φ）- 控制阻变存储器读取噪声的标准差
                  enable_noise: bool = True,        # 是否启用噪声模拟 - 用于切换精确解和近似解
-                 config_path: Optional[str] = None,  # 硬件配置文件路径
-                 logger: Optional[Logger] = None):
+                 config_path: Optional[str] ,  # 硬件配置文件路径
+                 logger: Optional[Logger] ):
         """
         初始化MBS求解器
         
