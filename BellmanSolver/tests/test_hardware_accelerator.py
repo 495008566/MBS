@@ -198,15 +198,6 @@ class TestHardwareAccelerator(unittest.TestCase):
         # 获取状态转移矩阵和奖励向量
         P = env.get_transition_matrix()
         R = env.get_reward_vector()
-        
-        # 测试精确解迭代次数
-        exact_solver = MBSolver(
-            state_size=25,
-            gamma=0.9,           # 折扣因子（论文中的γ）
-            epsilon=0.1,         # MBr收敛阈值（论文中的ε）
-            tau=0.1,             # 权重矩阵收敛阈值（论文中的τ）
-            use_hardware=False   # 使用CPU模式
-        )
         exact_solver.preprocess(R, P)
         
         # 记录精确解迭代次数
@@ -229,14 +220,7 @@ class TestHardwareAccelerator(unittest.TestCase):
         exact_solver._mbr_value_iteration = original_mbr_method
         
         # 测试近似解迭代次数（模拟阻变存储器噪声）
-        approx_solver = MBSolver(
-            state_size=25,
-            gamma=0.9,           # 折扣因子
-            epsilon=0.1,         # MBr收敛阈值
-            tau=0.1,             # 权重矩阵收敛阈值
-            use_hardware=True    # 使用硬件模式
-        )
-        
+        approx_solver 
         # 手动设置启用噪声
         if hasattr(approx_solver, 'hardware_interface') and \
            hasattr(approx_solver.hardware_interface, 'accelerator'):
