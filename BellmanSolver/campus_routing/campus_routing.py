@@ -505,71 +505,6 @@ class CampusRouter:
         plt.legend()
         plt.tight_layout()
         plt.show()
-    
-    def benchmark(self, 
-                start: Union[str, Tuple[float, float]], 
-                destination: Union[str, Tuple[float, float]], 
-                num_runs: int = 5) -> Dict[str, float]:
-        """
-        对比贝尔曼方程解法和Dijkstra算法的性能
-        
-        参数:
-        start: 起点名称或坐标
-        destination: 终点名称或坐标
-        num_runs: 运行次数
-        
-        返回:
-        Dict[str, float]: 性能指标
-        """
-        # 解析起点和终点
-        start_point = self.campus_map._parse_location(start)
-        dest_point = self.campus_map._parse_location(destination)
-        
-        if start_point is None or dest_point is None:
-            raise ValueError(f"无法解析起点或终点: {start} -> {destination}")
-        
-        # 贝尔曼方程解法时间
-        bellman_times = []
-        for _ in range(num_runs):
-            start_time = time.time()
-            self.find_path(start, destination)
-            bellman_times.append(time.time() - start_time)
-        
-        # Dijkstra算法时间
-        dijkstra_times = []
-        for _ in range(num_runs):
-            start_time = time.time()
-            self.campus_map.find_shortest_path(start, destination)
-            dijkstra_times.append(time.time() - start_time)
-        
-        # 计算平均时间
-        avg_bellman = sum(bellman_times) / num_runs
-        avg_dijkstra = sum(dijkstra_times) / num_runs
-        
-        # 计算bellman路径的长度
-        bellman_path = self.last_path
-        bellman_length = 0
-        for i in range(len(bellman_path) - 1):
-            p1 = bellman_path[i]
-            p2 = bellman_path[i + 1]
-            bellman_length += math.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
-        
-        # 计算dijkstra路径的长度
-        dijkstra_path, dijkstra_length = self.campus_map.find_shortest_path(start, destination)
-        
-        # 打印结果
-        print(f"贝尔曼方程解法平均时间: {avg_bellman:.6f} 秒")
-        print(f"Dijkstra算法平均时间: {avg_dijkstra:.6f} 秒")
-        print(f"贝尔曼方程解法路径长度: {bellman_length:.2f}")
-        print(f"Dijkstra算法路径长度: {dijkstra_length:.2f}")
-        
-        return {
-            'bellman_avg_time': avg_bellman,
-            'dijkstra_avg_time': avg_dijkstra,
-            'bellman_path_length': bellman_length,
-            'dijkstra_path_length': dijkstra_length
-        }
-
 
 if __name__ == "__main__":
     # 创建校园地图
@@ -597,8 +532,6 @@ if __name__ == "__main__":
     # 比较不同的路径
     router.compare_paths("图书馆", "科技楼")
     
-    # 性能测试
-    benchmark_results = router.benchmark("图书馆", "科技楼", num_runs=3)
     
     # 随机测试
     buildings = list(campus.buildings.keys())
